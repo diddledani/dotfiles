@@ -59,6 +59,8 @@ export PATH="$PATH:/usr/local/lib/aws-eb"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.composer" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"
 
+[ -d "$HOME/go" ] && export GOPATH="$HOME/go"
+
 export DEBFULLNAME="Daniel Llewellyn"
 export DEBEMAIL="dan@bang-on.net"
 
