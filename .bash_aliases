@@ -32,7 +32,7 @@ else
 fi
 
 if [ -d "/Applications/Sublime Text.app" ]; then
-	alias sublime="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+	alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 fi
 alias log=$BANGDIR/scripts/wordpress/log
 alias ec2=$BANGDIR/scripts/ec2/ec2
