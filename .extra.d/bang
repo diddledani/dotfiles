@@ -1,0 +1,26 @@
+BANGDIR="$HOME/bang"
+export BANGDIR
+
+alias log="$BANGDIR/scripts/wordpress/log"
+alias ec2="$BANGDIR/scripts/ec2/ec2"
+
+if [ -f "$BANGDIR/scripts/cluster/cluster_completion.sh" ]; then
+	source "$BANGDIR/scripts/cluster/cluster_completion.sh"
+fi
+if [ -f "$BANGDIR/scripts/gcomm/vm/gcomm_completion.sh" ]; then
+	source "$BANGDIR/scripts/gcomm/vm/gcomm_completion.sh"
+fi
+
+function cluster {
+	OLDWD="$(pwd)"
+	cd "$BANGDIR/drbd"
+	./cluster "$@"
+	cd "$OLDWD"
+}
+
+function gcomm {
+	OLDWD="$(pwd)"
+	cd "$BANGDIR/scripts/gcomm/vm"
+	./gcomm "$@"
+	cd "$OLDWD"
+}
