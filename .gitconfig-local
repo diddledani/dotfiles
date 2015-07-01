@@ -1,3 +1,7 @@
 [user]
 	email="daniel@bowlhat.net"
 	name="Daniel Llewellyn"
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+	pushInsteadOf = "https://github.com/"
