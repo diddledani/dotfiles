@@ -1,3 +1,4 @@
-export BANG_AWS_CREDENTIAL_FILE="$HOME/.ssh/bang-aws.creds"
-export MINE_AWS_CREDENTIAL_FILE="$HOME/.ssh/my-aws.creds"
-export BOWLHAT_AWS_CREDENTIAL_FILE="$HOME/.ssh/bowlhat-aws.creds"
+AWSDIR="$HOME/Private/AWS"
+export BANG_AWS_CREDENTIAL_FILE="$AWSDIR/bang-aws.creds"
+export MINE_AWS_CREDENTIAL_FILE="$AWSDIR/my-aws.creds"
+export BOWLHAT_AWS_CREDENTIAL_FILE="$AWSDIR/bowlhat-aws.creds"
