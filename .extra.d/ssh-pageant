@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ -x /usr/bin/ssh-pageant.exe ]; then
+	eval $(/usr/bin/ssh-pageant.exe -r -a $HOME/.ssh-auth.sock)
+fi
