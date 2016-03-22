@@ -1,0 +1,3 @@
+[ -d "$HOME/Documents/git/vv" ] && \
+	alias vv="$HOME/Documents/git/vv/vv" && \
+	source "$HOME/Documents/git/vv/vv-completions"

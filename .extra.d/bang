@@ -1,4 +1,4 @@
-BANGDIR="$HOME/bang"
+BANGDIR="$HOME/Documents/git"
 export BANGDIR
 
 alias log="$BANGDIR/scripts/wordpress/log"
