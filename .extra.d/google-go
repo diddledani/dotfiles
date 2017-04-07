@@ -1,3 +1,6 @@
+if [ -x /usr/local/go/bin/go ]; then
+	export PATH="/usr/local/go/bin:$PATH"
+fi
 if [ -d "$HOME/Documents/go" ]; then
 	export GOPATH="$HOME/Documents/go"
 	export PATH="$GOPATH/bin:$PATH"
