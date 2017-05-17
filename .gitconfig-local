@@ -7,8 +7,4 @@
 [user]
 	email="daniel@bowlhat.net"
 	name="Daniel Llewellyn"
-	signkey="349ED21"
-
-[url "git@github.com:"]
-	insteadOf = https://github.com/
-	pushInsteadOf = "https://github.com/"
+	signkey="0349ED21"
