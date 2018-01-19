@@ -11,3 +11,4 @@ export PS1='🎳🎩 🔹\[\e[0;36m\]\[\e[0;36m\] \W\[\033[0;35m\]$(__git_ps1 " 
 # colours for `ls` command
 # https://github.com/jonathf/gls
 #alias ls='gls'
+alias ls="ls --color"
