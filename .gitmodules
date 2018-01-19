@@ -10,15 +10,9 @@
 [submodule ".vim/bundle/vim-bufferline"]
 	path = .vim/bundle/vim-bufferline
 	url = git@github.com:bling/vim-bufferline.git
-[submodule ".vim/bundle/typescript-vim"]
-	path = .vim/bundle/typescript-vim
-	url = git@github.com:leafgarland/typescript-vim.git
-[submodule ".vim/bundle/vim-jsx-improve"]
-	path = .vim/bundle/vim-jsx-improve
-	url = git@github.com:chemzqm/vim-jsx-improve.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = git@github.com:scrooloose/nerdtree.git
-[submodule ".vim/bundle/vim-go"]
-	path = .vim/bundle/vim-go
-	url = git@github.com:fatih/vim-go.git
+[submodule ".vim/bundle/vim-polyglot"]
+	path = .vim/bundle/vim-polyglot
+	url = git@github.com:sheerun/vim-polyglot.git
