@@ -16,3 +16,6 @@
 [submodule ".vim/bundle/vim-jsx-improve"]
 	path = .vim/bundle/vim-jsx-improve
 	url = git@github.com:chemzqm/vim-jsx-improve.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = git@github.com:scrooloose/nerdtree.git
