@@ -10,4 +10,4 @@ export GIT_PS1_SHOWCOLORHINTS=true
 export PS1='🎳🎩 🔹\[\e[0;36m\]\[\e[0;36m\] \W\[\033[0;35m\]$(__git_ps1 " (%s)")\[\e[0m\]: '
 # colours for `ls` command
 # https://github.com/jonathf/gls
-alias ls='gls'
+#alias ls='gls'
