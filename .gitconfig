@@ -1,0 +1,5 @@
+[user]
+	email = daniel@bowlhat.net
+	name = Daniel Llewellyn
+[alias]
+	logs = log --show-signature
