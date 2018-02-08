@@ -4,8 +4,8 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
 	. "${HOME}/.gpg-agent-info"
 elif [ -f "${HOME}/.gnupg/gpg-agent-info" ]; then
 	. "${HOME}/.gnupg/gpg-agent-info"
-elif [ -e "/run/$(id -u)/gnupg/S.gpg-agent.ssh" ]; then
-  SSH_AUTH_SOCK="/run/$(id -u)/gnupg/S.gpg-agent.ssh"
+elif [ -e "/run/user/$(id -u)/gnupg/S.gpg-agent.ssh" ]; then
+  SSH_AUTH_SOCK="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh"
 fi
 
 export GPG_AGENT_INFO

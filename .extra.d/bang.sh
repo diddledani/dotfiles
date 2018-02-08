@@ -13,14 +13,14 @@ fi
 
 function cluster {
 	OLDWD="$(pwd)"
-	cd "$BANGDIR/drbd"
+	pushd "$BANGDIR/drbd"
 	./cluster "$@"
-	cd "$OLDWD"
+	popd
 }
 
 function gcomm {
 	OLDWD="$(pwd)"
-	cd "$BANGDIR/scripts/gcomm/vm"
+	pushd "$BANGDIR/scripts/gcomm/vm"
 	./gcomm "$@"
-	cd "$OLDWD"
+	popd
 }

@@ -1,3 +1,0 @@
-[ -x "/usr/bin/byobu" ] && BYOBU="/usr/bin/byobu-launch"
-[ -z "$BYOBU" -a -x "/usr/local/bin/byobu-launch" ] && BYOBU="/usr/local/bin/byobu-launch"
-[ ! -z "$BYOBU" ] && _byobu_sourced=1 . "$BYOBU" 2>/dev/null || true

@@ -1,1 +1,0 @@
-[ -d /usr/local/emsdk_portable ] && export PATH="$(/usr/local/emsdk_portable/emsdk active_path)"
