@@ -1,5 +1,5 @@
-GPG_TTY=$(tty)
-export GPG_TTY
+export GPG_TTY=$(tty)
+
 if [ -f "${HOME}/.gpg-agent-info" ]; then
 	. "${HOME}/.gpg-agent-info"
 elif [ -f "${HOME}/.gnupg/gpg-agent-info" ]; then
