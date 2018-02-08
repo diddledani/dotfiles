@@ -20,3 +20,7 @@ if is_osx; then
 else
   alias ls="command ls --color"
 fi
+
+for f in "$HOME/.extra.d/"*; do
+  . $f
+done

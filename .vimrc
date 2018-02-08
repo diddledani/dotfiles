@@ -1,7 +1,21 @@
+"============================================================
+" Plugins
+"============================================================
+" List of plugins that I use:
+" + ctrlp
+" + vim-airline
+" + dracula colour theme
+" + nerdtree
+" + vim-bufferline
+" + pathogen
+" + typescript-vim
+" + vim-jsx-improve
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/vim-airline/plugin/airline.vim
 set laststatus=2 " for airline
 
+"============================================================
 syntax on
 set smartindent
 set clipboard=unnamed " use os clipboard

@@ -1,1 +1,3 @@
-[ ! -z "$GIT_SSH" ] && unset GIT_SSH
+if [ ! -z "$GIT_SSH" ]; then
+    unset GIT_SSH
+fi
