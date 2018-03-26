@@ -2,14 +2,16 @@ if [ -x "/usr/bin/snap" ]; then
   if [ -z "$(snap list | grep '^go\s')" ]; then
     snap install go --classic
   fi
-elif [ -x "/usr/local/bin/brew" ]; then
-  if [ -z "$(brew list | grep '^go$')" ]; then
-    brew install go
+else
+  get_install go
+fi
+
+if [ ! $(which go) -a ! -d "$HOME/bin/go" ]; then
+  if [ "$(uname)" == "Linux" ]; then
+    fetch_extract "https://dl.google.com/go/go1.9.4.linux-amd64.tar.gz" "$HOME/bin"
+  elif [ "$(uname)" == "Darwin" ]; then
+    fetch_extract "https://dl.google.com/go/go1.9.4.darwin-amd64.tar.gz" "$HOME/bin"
   fi
-elif [ ! -d "$HOME/bin/go" -a "$(uname)" == "Linux" ]; then
-  curl -L -s -o /tmp/golang.tgz "https://dl.google.com/go/go1.9.4.linux-amd64.tar.gz"
-  tar zxf /tmp/golang.tgz -C "$HOME/bin"
-  rm /tmp/golang.tgz
 fi
 
 if [ -d "$HOME/bin/go/bin" ]; then

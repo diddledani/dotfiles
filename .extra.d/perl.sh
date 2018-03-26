@@ -1,7 +1,6 @@
 if [ ! -d "$HOME/perl5" ]; then
-	curl -L -s -o /tmp/local-lib.tgz http://search.cpan.org/CPAN/authors/id/H/HA/HAARG/local-lib-2.000024.tar.gz
-	tar zxf /tmp/local-lib.tgz -C /tmp
-	pushd /tmp/local-lib
+	fetch_extract http://search.cpan.org/CPAN/authors/id/H/HA/HAARG/local-lib-2.000024.tar.gz /tmp
+	pushd /tmp/local-lib-2.000024
 	perl Makefile.PL --bootstrap
 	make test && make install
 	popd
