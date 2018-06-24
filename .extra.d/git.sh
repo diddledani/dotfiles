@@ -1,4 +1,4 @@
-if [ ! -x "/$HOME/bin/hub" ]; then
+if [ ! -x "$HOME/bin/hub" ]; then
 	HUBURL=""
 	if [ "$(uname)" == "Linux" ]; then
 		HUBURL="https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz"
