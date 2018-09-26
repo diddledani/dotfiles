@@ -8,7 +8,7 @@ echo "Init submodules"
 yadm submodule update --recursive --init
 
 mkdir -p $HOME/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/vundle
+git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +BundleInstall +qall
 
 system_type=$(uname -s)
