@@ -613,5 +613,8 @@ highlight link GitGutterDelete DiffDelete
 highlight link GitGutterChangeDelete DiffDelete
 
 " }}}
+"
+" {{{ Fonts
+set guifont=MesloLGSNerdFontCompleteM-Regular:h11
 " }}}
 
