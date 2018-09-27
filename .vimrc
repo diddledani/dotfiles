@@ -35,8 +35,14 @@ Plugin 'scrooloose/syntastic'
 " Solarized theme
 Plugin 'altercation/vim-colors-solarized'
 
+" HTML5 syntax
+Plugin 'othree/html5.vim'
+
 " Somewhat improved Javascript syntax
 Plugin 'pangloss/vim-javascript'
+
+" React JSX syntax
+Plugin 'mxw/vim-jsx'
 
 " JSON syntax highlighting
 Plugin 'leshill/vim-json'
@@ -52,6 +58,9 @@ Plugin 'tpope/vim-unimpaired'
 
 " Repeat things
 Plugin 'tpope/vim-repeat'
+
+" Surround things
+Plugin 'tpope/vim-surround'
 
 " JSON pretty printing with gqaj
 Plugin 'tpope/vim-jdaddy'
@@ -76,6 +85,27 @@ Plugin 'itspriddle/vim-marked'
 
 " Better rainbow parens
 Plugin 'luochen1990/rainbow'
+
+" Editorconfig
+Plugin 'editorconfig/editorconfig-vim'
+
+" CSS3 syntax
+Plugin 'hail2u/vim-css3-syntax'
+
+" LESS CSS syntax
+Plugin 'groenewege/vim-less'
+
+" SCSS syntax
+Plugin 'cakebaker/scss-syntax.vim'
+
+" Golang support
+Plugin 'fatih/vim-go'
+
+" Dockerfile syntax
+Plugin 'ekalinin/dockerfile.vim'
+
+" PHP syntax
+Plugin 'stanangeloff/php.vim'
 
 call vundle#end()
 
@@ -501,8 +531,17 @@ set updatecount=0
 
 " }}}
 " {{{ Syntastic
-" Use jshint (uses ~/.jshintrc)
+" Find configuation files searching from the current directory upwards
+function! FindConfig(prefix, what, where)
+    let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+    return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+endfunction
+
+" Use jshint (uses first .jshintrc found in directory hierarchy upwards)
 let g:syntastic_javascript_checkers = ['jshint']
+autocmd FileType javascript let b:syntastic_javascript_jscs_args =
+    \ get(g:, 'syntastic_javascript_jscs_args', '') .
+    \ FindConfig('-c', '.jscsrc', expand('<afile>:p:h', 1))
 
 " Use flake8
 let g:syntastic_python_checkers = ['flake8']
@@ -591,6 +630,18 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+" }}}
+" {{{PHP
+function! PhpSyntaxOverride()
+  " Put snippet overrides in this function.
+  hi! link phpDocTags phpDefine
+  hi! link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
 " }}}
 
 " {{{ Epilog
