@@ -16,9 +16,14 @@ export PS1='🎳🎩 🔹\[\e[0;36m\]\[\e[0;36m\] \W\[\033[0;35m\]$(__git_ps1 " 
 # https://github.com/jonathf/gls
 #alias ls='gls'
 if is_osx; then
-  alias ls="command ls -G"
+    alias ls="command ls -G"
+    if type brew 2&>/dev/null; then
+      for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do
+        source "$completion_file"
+      done
+    fi
 else
-  alias ls="command ls --color"
+    alias ls="command ls --color"
 fi
 
 for f in "$HOME/.extra.d/"*; do
