@@ -7,10 +7,6 @@ cd "$HOME"
 echo "Init submodules"
 yadm submodule update --recursive --init
 
-mkdir -p $HOME/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-vim +BundleInstall +qall
-
 system_type=$(uname -s)
 
 if [ "$system_type" = "Darwin" ]; then
@@ -30,12 +26,16 @@ fi
 
 if [ "$system_type" = "Linux" ]; then
 
-  sudo apt install -yyq build-essential cmake python3-dev mono-complete
-  sudo snap install --channel=8/stable node
-  sudo snap install dotnet-sdk
-  sudo snap install go
+  sudo apt install -yyq build-essential cmake python3-dev mono-complete vim
+  sudo snap install --classic --channel=8/stable node
+  sudo snap install --classic dotnet-sdk
+  sudo snap install --classic go
 
 fi
+
+mkdir -p $HOME/.vim/bundle
+git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+vim +BundleInstall +qall
 
 pushd "$HOME/.vim/bundle/YouCompleteMe"
 python3 install.py --cs-completer --go-completer
