@@ -26,10 +26,18 @@ fi
 
 if [ "$system_type" = "Linux" ]; then
 
-  sudo apt install -yyq build-essential cmake python3-dev mono-complete vim
-  sudo snap install --classic --channel=8/stable node
-  sudo snap install --classic dotnet-sdk
-  sudo snap install --classic go
+  sudo apt install -yyq \
+    build-essential \
+    cmake \
+    mono-complete \
+    python3-dev \
+    vim \
+  ;
+  sudo snap install dotnet-sdk --classic
+  sudo snap install go --classic
+  sudo snap install heroku
+  sudo snap install hub
+  sudo snap install node --classic --channel=8/stable
 
 fi
 
