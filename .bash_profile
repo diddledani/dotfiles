@@ -26,6 +26,9 @@ else
     alias ls="command ls --color"
 fi
 
+alias vi=vim
+export EDITOR=vim
+
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 for f in "$HOME/.extra.d/"*; do
