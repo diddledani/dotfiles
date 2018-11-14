@@ -60,5 +60,8 @@ pushd "$HOME/.vim/bundle/YouCompleteMe"
 python3 install.py --cs-completer --go-completer
 popd
 
+echo "Decrypting private files"
+yadm decrypt
+
 echo "Updating the yadm repo origin URL"
 yadm remote set-url origin "git@github.com:diddledan/dotfiles.git"
