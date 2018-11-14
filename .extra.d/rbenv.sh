@@ -2,6 +2,7 @@ if [ -x "/usr/local/bin/brew" ]; then
 #	if [ ! $(brew list | grep '^rbenv$') ]; then
 #		brew install rbenv
 #	fi
+    true
 elif [ ! -d "$HOME/.rbenv/bin" ]; then
 	git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
 	pushd "$HOME/.rbenv"
