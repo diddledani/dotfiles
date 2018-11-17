@@ -3,7 +3,7 @@ function is_osx() {
 }
 
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
-source ~/bin/git-completion.bash
+#source ~/bin/git-completion.bash
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 source ~/bin/git-prompt.sh
 
@@ -17,14 +17,19 @@ export PS1='🎳🎩 \[\e[0;36m\]\[\e[0;36m\] \W\[\033[0;35m\]$(__git_ps1 " (%s)
 #alias ls='gls'
 if is_osx; then
     alias ls="command ls -G"
-    if type brew 2&>/dev/null; then
-      for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do
-        source "$completion_file"
-      done
-    fi
+    #if type brew 2&>/dev/null; then
+    #  for completion_file in $(brew --prefix)/etc/bash_completion.d/*; do
+    #    source "$completion_file"
+    #  done
+    #fi
 else
     alias ls="command ls --color"
 fi
+
+alias vi=vim
+export EDITOR=vim
+
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 for f in "$HOME/.extra.d/"*; do
   . $f

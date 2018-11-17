@@ -22,23 +22,42 @@ if [ "$system_type" = "Darwin" ]; then
     brew bundle --global
   fi
 
+  /usr/local/bin/emcc
+  sed -i -e "s|\(^LLVM_ROOT = os.path.expanduser(os.getenv('LLVM',\) '/usr/bin'\()).*\)$|\1
+  '/usr/local/opt/emscripten/libexec/llvm/bin'\2|;s|^\(BINARYEN_ROOT\)|#\1|" $HOME/.emscripten
+
 fi
 
 if [ "$system_type" = "Linux" ]; then
 
   sudo apt install -yyq \
     build-essential \
+    curl \
     cmake \
-    mono-complete \
+    php-cli \
     python3-dev \
+    mono-complete \
     vim \
   ;
-  sudo snap install dotnet-sdk --classic
-  sudo snap install go --classic
-  sudo snap install heroku
-  sudo snap install hub
-  sudo snap install node --classic --channel=8/stable
 
+  sudo snap install --classic --channel=8/stable node
+  sudo snap install --classic dotnet-sdk
+  sudo snap install --classic go
+  sudo snap install --classic hub
+
+  curl -L -s -o /tmp/emscripten.tgz "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
+
+  if [ ! -d "$HOME/bin/emsdk-portable" -a -f /tmp/emscripten.tgz ]; then
+    tar zxf /tmp/emscripten.tgz -C "$HOME/bin"
+  fi
+
+  if [ -d "$HOME/bin/emsdk-portable" ]; then
+    pushd "$HOME/bin/emsdk-portable"
+    ./emsdk update
+    ./emsdk install latest
+    ./emsdk update latest
+    popd
+  fi
 fi
 
 mkdir -p $HOME/.vim/bundle
@@ -48,6 +67,9 @@ vim +BundleInstall +qall
 pushd "$HOME/.vim/bundle/YouCompleteMe"
 python3 install.py --cs-completer --go-completer
 popd
+
+echo "Decrypting private files"
+yadm decrypt
 
 echo "Updating the yadm repo origin URL"
 yadm remote set-url origin "git@github.com:diddledan/dotfiles.git"
