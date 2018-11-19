@@ -40,7 +40,7 @@ if [ "$system_type" = "Linux" ]; then
     vim \
   ;
 
-  sudo snap install --classic --channel=8/stable node
+  sudo snap install --classic --channel=10/stable node
   sudo snap install --classic dotnet-sdk
   sudo snap install --classic go
   sudo snap install --classic hub

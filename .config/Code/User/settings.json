@@ -1,4 +1,8 @@
 {
     "editor.fontFamily": "'FuraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "terminal.integrated.rendererType": "dom",
+    "window.zoomLevel": 0,
+    "git.autofetch": true,
+    "window.titleBarStyle": "custom"
 }
