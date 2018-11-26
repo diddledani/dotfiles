@@ -1,8 +1,17 @@
 {
+    "git.autofetch": true,
     "editor.fontFamily": "'FuraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
-    "terminal.integrated.rendererType": "dom",
+    "editor.rulers": [
+        80
+    ],
     "window.zoomLevel": 0,
-    "git.autofetch": true,
-    "window.titleBarStyle": "custom"
+    "window.titleBarStyle": "custom",
+    "githubPullRequests.hosts": [
+        {
+            "host": "https://github.com",
+            "username": "oauth",
+            "token": "system"
+        }
+    ]
 }
