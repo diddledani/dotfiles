@@ -666,6 +666,6 @@ highlight link GitGutterChangeDelete DiffDelete
 " }}}
 "
 " {{{ Fonts
-set guifont=MesloLGSNerdFontCompleteM-Regular:h11
+set guifont=FiraMonoFor\ Nerd\ Font\ Mono\ 10
 " }}}
 
