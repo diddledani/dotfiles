@@ -17,10 +17,8 @@ if [ "$system_type" = "Darwin" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
-  if [ -f "$HOME/.Brewfile" ]; then
-    echo "Updating homebrew bundle"
-    brew bundle --global
-  fi
+  echo "Updating homebrew bundle"
+  brew bundle --global
 
   /usr/local/bin/emcc
   sed -i -e "s|\(^LLVM_ROOT = os.path.expanduser(os.getenv('LLVM',\) '/usr/bin'\()).*\)$|\1
@@ -46,19 +44,31 @@ if [ "$system_type" = "Linux" ]; then
   sudo snap install --classic hub
 
   curl -L -s -o /tmp/emscripten.tgz "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
+  tar zxf /tmp/emscripten.tgz -C "$HOME/bin"
 
-  if [ ! -d "$HOME/bin/emsdk-portable" -a -f /tmp/emscripten.tgz ]; then
-    tar zxf /tmp/emscripten.tgz -C "$HOME/bin"
-  fi
-
-  if [ -d "$HOME/bin/emsdk-portable" ]; then
-    pushd "$HOME/bin/emsdk-portable"
-    ./emsdk update
-    ./emsdk install latest
-    ./emsdk update latest
-    popd
-  fi
+  pushd "$HOME/bin/emsdk-portable"
+  ./emsdk update
+  ./emsdk install latest
+  ./emsdk update latest
+  popd
 fi
+
+git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+pushd "$HOME/.rbenv"
+src/configure && make -C src
+popd
+
+composer_sigfile="$(mktemp)"
+curl -L -s -o "$composer_sigfile" "https://composer.github.io/installer.sig"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+EXPECTED_SIGNATURE="$(cat "$composer_sigfile")"
+ACTUAL_SIGNATURE="$(php -r "echo hash_file('SHA384', 'composer-setup.php');")"
+
+if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]; then
+    php composer-setup.php --quiet --install-dir="$HOME/bin" --filename=composer
+fi
+rm composer-setup.php
 
 mkdir -p $HOME/.vim/bundle
 git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
@@ -73,3 +83,4 @@ yadm decrypt
 
 echo "Updating the yadm repo origin URL"
 yadm remote set-url origin "git@github.com:diddledan/dotfiles.git"
+
