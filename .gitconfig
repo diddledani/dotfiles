@@ -3,3 +3,10 @@
 	name = Daniel Llewellyn
 [alias]
 	logs = log --show-signature
+
+[url "git+ssh://diddledan@git.launchpad.net/"]
+    insteadOf = lp:
+
+[url "git+ssh://diddledan@git.launchpad.net/~diddledan/+git/"]
+    insteadOf = lpme:
+
