@@ -78,6 +78,9 @@ pushd "$HOME/.vim/bundle/YouCompleteMe"
 python3 install.py --cs-completer --go-completer
 popd
 
+echo "Importing GPG key"
+gpg --recv-keys 0349ED21
+
 echo "Decrypting private files"
 yadm decrypt
 
