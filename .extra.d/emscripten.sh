@@ -1,2 +1,4 @@
-source "$HOME/bin/emsdk-portable/emsdk_env.sh" > /dev/null
 
+if [ -f "$HOME/bin/emsdk/emsdk_env.sh" ]; then
+    source "$HOME/bin/emsdk/emsdk_env.sh" > /dev/null
+fi

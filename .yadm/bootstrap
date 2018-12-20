@@ -43,10 +43,14 @@ if [ "$system_type" = "Linux" ]; then
   sudo snap install --classic go
   sudo snap install --classic hub
 
-  curl -L -s -o /tmp/emscripten.tgz "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
-  tar zxf /tmp/emscripten.tgz -C "$HOME/bin"
+  mkdir -p "$HOME/bin/emsdk"
 
-  pushd "$HOME/bin/emsdk-portable"
+  pushd "$HOME/bin/emsdk"
+  if [ -d "./.git" ]; then
+    git pull
+  else
+    git clone https://github.com/juj/emsdk.git .
+  fi
   ./emsdk update
   ./emsdk install latest
   ./emsdk update latest
