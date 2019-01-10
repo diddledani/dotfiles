@@ -31,6 +31,6 @@ export EDITOR=vim
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-for f in "$HOME/.extra.d/"*; do
+for f in "$HOME/.extra.d/"*.sh; do
   . $f
 done
