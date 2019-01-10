@@ -1,0 +1,2 @@
+export MSBuildSDKsPath=`dotnet --info | grep 'Base Path' | sed -re 's/[^\/]*(.*)/\1/g'`/Sdks
+
