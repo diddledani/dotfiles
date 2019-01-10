@@ -33,6 +33,7 @@ if [ "$system_type" = "Linux" ]; then
     curl \
     cmake \
     php-cli \
+    python-dev \
     python3-dev \
     mono-complete \
     vim \
@@ -43,17 +44,21 @@ if [ "$system_type" = "Linux" ]; then
   sudo snap install --classic go
   sudo snap install --classic hub
 
-  mkdir -p "$HOME/bin/emsdk"
-
-  pushd "$HOME/bin/emsdk"
-  if [ -d "./.git" ]; then
-    git pull
-  else
-    git clone https://github.com/juj/emsdk.git .
+  if [ ! -d "$HOME/bin" ]; then
+    mkdir -p "$HOME/bin"
   fi
-  ./emsdk update
-  ./emsdk install latest
-  ./emsdk update latest
+
+  if [ -d "$HOME/bin/emsdk" ] && [ -d "$HOME/bin/emsdk/.git" ]; then
+    pushd "$HOME/bin/emsdk"
+      git pull
+    popd
+  else
+    git clone https://github.com/juj/emsdk.git "$HOME/bin/emsdk"
+  fi
+  pushd "emsdk"
+    ./emask update-tags
+    ./emsdk install latest
+    ./emsdk activate latest
   popd
 fi
 
