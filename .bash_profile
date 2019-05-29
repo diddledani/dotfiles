@@ -11,7 +11,7 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWCOLORHINTS=true
 
-export PS1='🎳🎩 \[\e[0;36m\]\[\e[0;36m\] \W\[\033[0;35m\]$(__git_ps1 " (%s)") \[\e[0m\]\$ '
+export PS1='\n🎳🎩 \[\e[0;36m\]\[\e[0;36m\] \W\[\033[0;35m\]$(__git_ps1 " (%s)")\[\e[0m\] \$ '
 # colours for `ls` command
 # https://github.com/jonathf/gls
 #alias ls='gls'
@@ -31,6 +31,13 @@ export EDITOR=vim
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+
 for f in "$HOME/.extra.d/"*.sh; do
   . $f
 done
+
+export PATH="$HOME/.cargo/bin:$PATH"
