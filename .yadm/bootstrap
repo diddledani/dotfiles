@@ -30,17 +30,17 @@ if [ "$system_type" = "Linux" ]; then
 
   sudo apt install -yyq \
     build-essential \
-    curl \
     cmake \
-    php-cli \
-    python-dev \
-    python3-dev \
+    curl \
     mono-complete \
+    php-cli \
+    python3-dev \
+    python-dev \
+    scdaemon \
     vim \
   ;
 
   sudo snap install --classic --channel=10/stable node
-  sudo snap install --classic dotnet-sdk
   sudo snap install --classic go
   sudo snap install --classic hub
 
