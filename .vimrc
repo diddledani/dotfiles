@@ -50,6 +50,9 @@ Plugin 'leshill/vim-json'
 " Fuzzy finding
 Plugin 'kien/ctrlp.vim'
 
+" Directory tree view
+Plugin 'scrooloose/NERDTree'
+
 " Comment with gc
 Plugin 'tpope/vim-commentary'
 
@@ -102,7 +105,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'fatih/vim-go'
 
 " Dockerfile syntax
-Plugin 'ekalinin/dockerfile.vim'
+Plugin 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 
 " PHP syntax
 Plugin 'stanangeloff/php.vim'
@@ -441,6 +444,10 @@ map <F7> :NERDTreeToggle<CR>
 
 " Change the working directory to the top NERDTree directory
 let NERDTreeChDirMode = 2
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 " }}}
 " {{{ Paste
