@@ -32,10 +32,10 @@ if [ "$system_type" = "Linux" ]; then
     build-essential \
     cmake \
     curl \
+    fonts-noto-color-emoji \
     mono-complete \
     php-cli \
     python3-dev \
-    python-dev \
     scdaemon \
     vim-gtk3 \
   ;
@@ -57,7 +57,7 @@ if [ "$system_type" = "Linux" ]; then
     git clone https://github.com/juj/emsdk.git "$HOME/bin/emsdk"
   fi
   pushd "emsdk"
-    ./emask update-tags
+    ./emsdk update-tags
     ./emsdk install latest
     ./emsdk activate latest
   popd
@@ -85,7 +85,7 @@ git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +BundleInstall +qall
 
 pushd "$HOME/.vim/bundle/YouCompleteMe"
-python3 install.py --cs-completer --go-completer
+python3 install.py --all
 popd
 
 echo "Importing GPG key"
