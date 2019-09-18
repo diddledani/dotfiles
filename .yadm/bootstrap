@@ -28,7 +28,7 @@ fi
 
 if [ "$system_type" = "Linux" ]; then
 
-  sudo apt install -yyq \
+  sudo apt-get install --no-install-recommends -yyq \
     build-essential \
     cmake \
     curl \
