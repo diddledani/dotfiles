@@ -1,3 +1,12 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
-	url = ./.oh-my-zsh
+	url = https://github.com/juj/emsdk.git
+[submodule ".rbenv"]
+	path = .rbenv
+	url = https://github.com/rbenv/rbenv.git
+[submodule "bin/emsdk"]
+	path = bin/emsdk
+	url = https://github.com/juj/emsdk.git
+[submodule ".vim/bundle/Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = https://github.com/gmarik/Vundle.vim.git

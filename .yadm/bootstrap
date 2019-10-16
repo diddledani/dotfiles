@@ -19,11 +19,6 @@ if [ "$system_type" = "Darwin" ]; then
 
   echo "Updating homebrew bundle"
   brew bundle --global
-
-  /usr/local/bin/emcc
-  sed -i -e "s|\(^LLVM_ROOT = os.path.expanduser(os.getenv('LLVM',\) '/usr/bin'\()).*\)$|\1
-  '/usr/local/opt/emscripten/libexec/llvm/bin'\2|;s|^\(BINARYEN_ROOT\)|#\1|" "$HOME/.emscripten"
-
 fi
 
 if [ "$system_type" = "Linux" ]; then
@@ -49,23 +44,16 @@ if [ "$system_type" = "Linux" ]; then
     mkdir -p "$HOME/bin"
   fi
 
-  if [ -d "$HOME/bin/emsdk" ] && [ -d "$HOME/bin/emsdk/.git" ]; then
-    pushd "$HOME/bin/emsdk"
-      git pull
-    popd
-  else
-    git clone https://github.com/juj/emsdk.git "$HOME/bin/emsdk"
-  fi
-  pushd "emsdk"
-    ./emsdk update-tags
-    ./emsdk install latest
-    ./emsdk activate latest
-  popd
 fi
 
-git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+pushd "$HOME/bin/emsdk"
+  ./emsdk update-tags
+  ./emsdk install latest
+  ./emsdk activate latest
+popd
+
 pushd "$HOME/.rbenv"
-src/configure && make -C src
+  ./src/configure && make -C src
 popd
 
 composer_sigfile="$(mktemp)"
@@ -83,8 +71,6 @@ rm composer-setup.php
 curl -o "$HOME/bin/wp" https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x "$HOME/bin/wp"
 
-mkdir -p "$HOME/.vim/bundle"
-git clone https://github.com/gmarik/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
 vim +BundleInstall +qall
 
 pushd "$HOME/.vim/bundle/YouCompleteMe"
