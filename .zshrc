@@ -74,6 +74,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+DEFAULT_USER=dllewellyn
+
 export COMPOSER_HOME="$HOME/.composer"
 
 # export MANPATH="/usr/local/man:$MANPATH"
