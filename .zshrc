@@ -74,7 +74,12 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export COMPOSER_HOME="$HOME/.composer"
+
 # export MANPATH="/usr/local/man:$MANPATH"
+export GOPATH="$HOME/Development/go/gopath"
+
+export PATH="$COMPOSER_HOME/vendor/bin:$GOPATH/bin:$HOME/bin:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -88,6 +93,9 @@ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
+export DEBFULLNAME="Daniel Llewellyn"
+export DEBEMAIL="diddledan@ubuntu.com"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
