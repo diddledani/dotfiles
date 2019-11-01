@@ -81,7 +81,7 @@ export COMPOSER_HOME="$HOME/.composer"
 # export MANPATH="/usr/local/man:$MANPATH"
 export GOPATH="$HOME/Development/go/gopath"
 
-export PATH="$COMPOSER_HOME/vendor/bin:$GOPATH/bin:$HOME/bin:$PATH"
+export PATH="$COMPOSER_HOME/vendor/bin:$HOME/.npm-packages/bin:$GOPATH/bin:$HOME/bin:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

@@ -1,6 +1,13 @@
 function is_osx() {
   [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
+function is_wsl() {
+    [[ "$(uname -r)" =~ microsoft ]] || return 1
+}
+
+if is_wsl && [ "$SHLVL" = 1 ]; then
+    exec zsh
+fi
 
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
 #source ~/bin/git-completion.bash
