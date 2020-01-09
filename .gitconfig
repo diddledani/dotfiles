@@ -1,6 +1,11 @@
 [user]
 	email = daniel@bowlhat.net
 	name = Daniel Llewellyn
+    signingkey = 0349ED21
+
+[gpg]
+    program = /usr/bin/gpg
+
 [alias]
 	logs = log --show-signature
 
