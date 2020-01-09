@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+system_type=$(uname -s)
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -68,7 +69,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(composer dirhistory docker docker-compose dotenv gem git github golang grunt gulp kubectl npm rbenv svn vscode wp-cli xcode yarn)
+plugins=(composer dirhistory docker docker-compose dotenv gem git github golang grunt gulp helm kubectl npm per-directory-history rbenv svn virtualenv vscode wp-cli xcode yarn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -77,6 +78,10 @@ source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=dllewellyn
 
 export COMPOSER_HOME="$HOME/.composer"
+
+if [ "$system_type" = "Darwin" ]; then
+  export HAXE_STD_PATH="/usr/local/lib/haxe/std"
+fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export GOPATH="$HOME/Development/go/gopath"
