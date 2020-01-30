@@ -51,7 +51,7 @@ ZSH_THEME="agnoster"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -114,3 +114,16 @@ export DEBEMAIL="diddledan@ubuntu.com"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 eval "$(direnv hook zsh)"
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_aws
+  prompt_context
+  prompt_dir
+  prompt_git
+#  prompt_bzr
+  prompt_hg
+  prompt_end
+}
+
