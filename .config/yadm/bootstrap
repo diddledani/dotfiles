@@ -9,6 +9,11 @@ yadm submodule update --recursive --init
 
 system_type=$(uname -s)
 
+env RUNZSH="no" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ -f ".zshrc.pre-oh-my-zsh" ]; then
+  mv ".zshrc.pre-oh-my-zsh" ".zshrc"
+fi
+
 if [ "$system_type" = "Darwin" ]; then
 
   # install homebrew if it's missing
