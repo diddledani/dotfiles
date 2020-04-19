@@ -83,7 +83,7 @@ python3 install.py --all
 popd
 
 echo "Importing GPG key"
-gpg --recv-keys 0349ED21
+gpg --keyserver keys.openpgp.org --recv-keys 4C9CBFAD0069D6799660BCD540C2D9580349ED21
 
 echo "Decrypting private files"
 yadm decrypt
