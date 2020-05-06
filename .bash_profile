@@ -2,7 +2,7 @@ function is_osx() {
     [[ "$OSTYPE" =~ ^darwin ]] && return 0 || return 1
 }
 function is_wsl() {
-    return [[ "$(uname -r)" =~ microsoft ]] && return 0 || return 1
+    [[ "$(uname -r)" =~ microsoft ]] && return 0 || return 1
 }
 
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
