@@ -46,7 +46,7 @@ done
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-if $is_wsl; then
+if is_wsl; then
 	#####
 	## Autorun for the gpg-relay bridge
 	##
