@@ -1,13 +1,9 @@
 function is_osx() {
-  [[ "$OSTYPE" =~ ^darwin ]] || return 1
+    [[ "$OSTYPE" =~ ^darwin ]] && return 0 || return 1
 }
 function is_wsl() {
-    [[ "$(uname -r)" =~ microsoft ]] || return 1
+    return [[ "$(uname -r)" =~ microsoft ]] && return 0 || return 1
 }
-
-if is_wsl && [ "$SHLVL" = 1 ]; then
-    exec zsh
-fi
 
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
 #source ~/bin/git-completion.bash
@@ -49,3 +45,26 @@ for f in "$HOME/.extra.d/"*.sh; do
 done
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+if $is_wsl; then
+	#####
+	## Autorun for the gpg-relay bridge
+	##
+	SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
+
+	if [ -f $SOCAT_PID_FILE ] && kill -0 $(cat $SOCAT_PID_FILE); then
+		: # already running
+	else
+		rm -f "$HOME/.gnupg/S.gpg-agent"
+		(trap "rm -f $SOCAT_PID_FILE" EXIT; socat UNIX-LISTEN:"$HOME/.gnupg/S.gpg-agent,fork" EXEC:'/mnt/c/Users/yabea/bin/npiperelay.exe -ei -ep -s -a "C:/Users/yabea/AppData/Roaming/gnupg/S.gpg-agent"',nofork </dev/null &>/dev/null) &
+		echo $! >$SOCAT_PID_FILE
+	fi
+
+	export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
+	ss -a | grep -q $SSH_AUTH_SOCK
+	if [ $? -ne 0   ]; then
+		rm -f $SSH_AUTH_SOCK
+		( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"/mnt/c/Users/yabea/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork >/dev/null 2>/dev/null &)
+	fi
+fi 
+

@@ -38,6 +38,7 @@ if [ "$system_type" = "Linux" ]; then
     python3-dev \
     scdaemon \
     vim-gtk3 \
+    socat \
   ;
 
   sudo snap install --classic --channel=10/stable node
