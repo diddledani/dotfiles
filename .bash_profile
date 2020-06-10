@@ -46,6 +46,8 @@ done
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
+eval "$(direnv hook bash)"
+
 if is_wsl; then
 	#####
 	## Autorun for the gpg-relay bridge
