@@ -12,3 +12,5 @@
 [url "git+ssh://diddledan@git.launchpad.net/~diddledan/+git/"]
     insteadOf = lpme:
 
+[color]
+	ui = auto

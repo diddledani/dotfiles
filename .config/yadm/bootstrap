@@ -41,6 +41,8 @@ if [ "$system_type" = "Linux" ]; then
   sudo snap install --classic hub
   sudo snap install --classic powershell
 
+  sudo snap install --channel=extended hugo
+
   if [ ! -d "$HOME/bin" ]; then
     mkdir -p "$HOME/bin"
   fi
