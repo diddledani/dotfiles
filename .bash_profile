@@ -51,18 +51,20 @@ if is_wsl; then
 	## Autorun for the gpg-relay bridge
 	##
 	SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
+    SOCAT_PID_FILE2=$HOME/.gnupg/socat-gpg.pid.2
 
-	if [ -f $SOCAT_PID_FILE ] && kill -0 $(cat $SOCAT_PID_FILE); then
-		: # already running
-	else
-		rm -f "$HOME/.gnupg/S.gpg-agent"
-		(trap "rm -f $SOCAT_PID_FILE" EXIT; socat UNIX-LISTEN:"$HOME/.gnupg/S.gpg-agent,fork" EXEC:'/mnt/c/Users/yabea/bin/npiperelay.exe -ei -ep -s -a "C:/Users/yabea/AppData/Roaming/gnupg/S.gpg-agent"',nofork </dev/null &>/dev/null) &
-		echo $! >$SOCAT_PID_FILE
-	fi
+    for sock in "$HOME/.gnupg/S.gpg-agent" "/run/user/$UID/gnupg/S.gpg-agent"; do
+        ss -a | grep -q $sock
+        if [ $? -ne 0 ]; then
+            rm -f "$sock"
+            mkdir -p "$(dirname "$sock")"
+            ( setsid socat UNIX-LISTEN:"$sock,fork" EXEC:'/mnt/c/Users/yabea/bin/npiperelay.exe -ei -ep -s -a "C:/Users/yabea/AppData/Roaming/gnupg/S.gpg-agent"',nofork </dev/null) &
+        fi
+    done
 
 	export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
 	ss -a | grep -q $SSH_AUTH_SOCK
-	if [ $? -ne 0   ]; then
+	if [ $? -ne 0 ]; then
 		rm -f $SSH_AUTH_SOCK
 		( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"/mnt/c/Users/yabea/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork >/dev/null 2>/dev/null &)
 	fi
