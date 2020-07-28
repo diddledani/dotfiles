@@ -9,8 +9,14 @@ yadm submodule update --recursive --init
 
 system_type=$(uname -s)
 
-if [ "$system_type" = "Darwin" ]; then
+if [ -n "$WSL_DISTRO_NAME" ] && [ ! -x /usr/sbin/start-systemd-namespace ]; then
+    systemd_temp="$(mktemp -d)"
+    git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git "$systemd_temp"
+    "$systemd_temp/ubuntu-wsl2-systemd-script.sh"
+    exec /bin/bash --rcfile /usr/sbin/start-systemd-namespace -c "$0 $*"
+fi
 
+if [ "$system_type" = "Darwin" ]; then
   # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
@@ -22,19 +28,21 @@ if [ "$system_type" = "Darwin" ]; then
 fi
 
 if [ "$system_type" = "Linux" ]; then
-
   sudo apt-get install --no-install-recommends -yyq \
     build-essential \
     cmake \
     curl \
+    direnv \
     fonts-noto-color-emoji \
     mono-complete \
     php-cli \
     python3-dev \
     scdaemon \
-    vim-gtk3 \
     socat \
+    vim-gtk3 \
+    zsh \
   ;
+
 
   sudo snap install --classic --channel=10/stable node
   sudo snap install --classic go
