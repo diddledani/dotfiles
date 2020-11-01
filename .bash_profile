@@ -35,11 +35,6 @@ export EDITOR=vim
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-# unset SSH_AGENT_PID
-# if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-#     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-# fi
-
 for f in "$HOME/.extra.d/"*.sh; do
   . $f
 done
@@ -55,20 +50,20 @@ if is_wsl; then
 	SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
     SOCAT_PID_FILE2=$HOME/.gnupg/socat-gpg.pid.2
 
+    relayexe="$(wslpath 'C:/Users/yabea/AppData/Roaming/wsl2-ssh-gpg-agent-relay.exe')"
     for sock in "$HOME/.gnupg/S.gpg-agent" "/run/user/$UID/gnupg/S.gpg-agent"; do
-        ss -a | grep -q $sock
-        if [ $? -ne 0 ]; then
+        if ! ss -a | grep -q $sock; then
             rm -f "$sock"
             mkdir -p "$(dirname "$sock")"
-            ( setsid socat UNIX-LISTEN:"$sock,fork" EXEC:'/mnt/c/Users/yabea/bin/npiperelay.exe -ei -ep -s -a "C:/Users/yabea/AppData/Roaming/gnupg/S.gpg-agent"',nofork </dev/null) &
+            setsid --fork socat UNIX-LISTEN:"$sock,fork" EXEC:"$relayexe -ei -ep -s -a 'C:/Users/yabea/AppData/Roaming/gnupg/S.gpg-agent'",nofork
         fi
     done
+    unset sock
 
-	export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
-	ss -a | grep -q $SSH_AUTH_SOCK
-	if [ $? -ne 0 ]; then
-		rm -f $SSH_AUTH_SOCK
-		( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"/mnt/c/Users/yabea/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork >/dev/null 2>/dev/null &)
-	fi
+    export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
+    if ! ss -a | grep -q $SSH_AUTH_SOCK; then
+        rm -f $SSH_AUTH_SOCK
+        setsid --fork socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$relayexe -ei -ep -s //./pipe/openssh-ssh-agent",nofork
+    fi
 fi 
 
