@@ -1,5 +1,5 @@
 [user]
-	email = daniel@bowlhat.net
+	email = diddledan@ubuntu.com
 	name = Daniel Llewellyn
     signingkey = 0349ED21
 
@@ -14,3 +14,9 @@
 
 [color]
 	ui = auto
+[pull]
+	rebase = true
+[commit]
+	gpgSign = true
+[push]
+	default = upstream
