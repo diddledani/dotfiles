@@ -357,6 +357,20 @@ set history=1000
 " Completion
 inoremap <Nul> <C-X><C-P>
 
+" Alt+j/Alt+k/Alt+down/Alt+up move line down/up
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+nnoremap <A-Down> :m .+1<CR>==
+nnoremap <A-Up> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+inoremap <A-Down> :m .+1<CR>==gi
+inoremap <A-Up> :m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+
 " Edit and source this file
 nmap <silent> <leader>ev :split $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>
