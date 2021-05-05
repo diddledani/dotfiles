@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 system_type=$(uname -s)
+system_arch=$(uname -m)
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -64,14 +65,13 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(composer dirhistory docker docker-compose dotenv gem git github golang grunt gulp helm kubectl npm per-directory-history rbenv svn virtualenv vscode wp-cli xcode yarn)
-
-source $ZSH/oh-my-zsh.sh
+plugins=(composer dirhistory docker docker-compose dotenv gem git github golang grunt gulp kubectl npm per-directory-history rbenv svn virtualenv vscode wp-cli xcode yarn)
 
 # User configuration
 
@@ -80,13 +80,29 @@ DEFAULT_USER=dllewellyn
 export COMPOSER_HOME="$HOME/.composer"
 
 if [ "$system_type" = "Darwin" ]; then
-  export HAXE_STD_PATH="/usr/local/lib/haxe/std"
+    if [ "$system_arch" = "x86_64" ]; then
+        HOMEBREW_DIR="/usr/local"
+    else
+        HOMEBREW_DIR="/opt/homebrew"
+        path+=("$HOMEBREW_DIR/bin")
+    fi
+
+    export HAXE_STD_PATH="$HOMEBREW_DIR/lib/haxe/std"
+    export NEKOPATH="$HOMEBREW_DIR/lib/neko"
+fi
+
+if type brew &>/dev/null; then
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export GOPATH="$HOME/Development/go/gopath"
 
-export PATH="$COMPOSER_HOME/vendor/bin:$HOME/.npm-packages/bin:$GOPATH/bin:$HOME/bin:/usr/local/sbin:$PATH"
+path+=("$COMPOSER_HOME/vendor/bin")
+path+=("$HOME/.npm-packages/bin")
+path+=("$GOPATH/bin")
+path+=("$HOME/bin")
+path+=(/usr/local/sbin)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -103,6 +119,9 @@ fi
 
 export DEBFULLNAME="Daniel Llewellyn"
 export DEBEMAIL="diddledan@ubuntu.com"
+
+# export the new PATH
+export PATH
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -126,4 +145,6 @@ build_prompt() {
   prompt_hg
   prompt_end
 }
+
+source $ZSH/oh-my-zsh.sh
 
