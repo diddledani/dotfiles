@@ -1,3 +1,3 @@
-export DEBFULLNAME="Daniel Llewellyn"
-export DEBEMAIL="diddledan@ubuntu.com"
+export DEBFULLNAME="Dani Llewellyn"
+export DEBEMAIL="diddledani@ubuntu.com"
 
