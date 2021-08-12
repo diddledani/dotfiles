@@ -9,11 +9,17 @@ yadm submodule update --recursive --init
 
 system_type=$(uname -s)
 
-if [ -n "$WSL_DISTRO_NAME" ] && [ ! -x /usr/sbin/start-systemd-namespace ]; then
-    systemd_temp="$(mktemp -d)"
-    git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git "$systemd_temp"
-    "$systemd_temp/ubuntu-wsl2-systemd-script.sh"
-    exec /bin/bash --rcfile /usr/sbin/start-systemd-namespace -c "$0 $*"
+if [ -n "$WSL_DISTRO_NAME" ] && [ ! -f /etc/profile.d/00-wsl2-systemd.sh ]; then
+    install_script="$(mktemp --suffix=.ps1)"
+    if [ $(/usr/bin/wslsys -B | awk '{print $2}') -gt 21286 ]; then
+        curl -o "$install_script" https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/build-21286%2B/install.ps1
+        powershell.exe -NonInteractive -NoProfile -ExecutionPolicy Bypass -File "$install_script" -distro "$WSL_DISTRO_NAME"
+    else
+        curl -o "$install_script" https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/master/install.ps1
+        powershell.exe -NonInteractive -NoProfile -ExecutionPolicy Bypass -File "$install_script" -distro "$WSL_DISTRO_NAME"
+    fi
+    rm "$install_script"
+    exec /etc/profile.d/00-wsl2-systemd.sh "$(realpath "${BASH_SOURCE[0]}")"
 fi
 
 if [ "$system_type" = "Darwin" ]; then
@@ -43,7 +49,7 @@ if [ "$system_type" = "Linux" ]; then
     zsh \
   ;
 
-  sudo snap install --classic --channel=12/stable node
+  sudo snap install --classic --channel=14/stable node
   sudo snap install --classic go
   sudo snap install --classic hub
   sudo snap install --classic powershell
