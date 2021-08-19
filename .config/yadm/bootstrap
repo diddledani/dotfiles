@@ -105,5 +105,5 @@ echo "Decrypting private files"
 yadm decrypt
 
 echo "Updating the yadm repo origin URL"
-yadm remote set-url origin "git@github.com:diddledan/dotfiles.git"
+yadm remote set-url origin "git@github.com:diddledani/dotfiles.git"
 
