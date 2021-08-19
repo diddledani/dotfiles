@@ -19,7 +19,7 @@ if [ -n "$WSL_DISTRO_NAME" ] && [ ! -f /etc/profile.d/00-wsl2-systemd.sh ]; then
         powershell.exe -NonInteractive -NoProfile -ExecutionPolicy Bypass -File "$install_script" -distro "$WSL_DISTRO_NAME"
     fi
     rm "$install_script"
-    exec /etc/profile.d/00-wsl2-systemd.sh "$(realpath "${BASH_SOURCE[0]}")"
+    exec /bin/sh /etc/profile.d/00-wsl2-systemd.sh "$(realpath "${BASH_SOURCE[0]}")"
 fi
 
 if [ "$system_type" = "Darwin" ]; then
