@@ -1,15 +1,15 @@
 [user]
-	email = diddledan@ubuntu.com
-	name = Daniel Llewellyn
+	email = diddledani@ubuntu.com
+	name = Dani Llewellyn
     signingkey = 0349ED21
 
 [alias]
 	logs = log --show-signature
 
-[url "git+ssh://diddledan@git.launchpad.net/"]
+[url "git+ssh://diddledani@git.launchpad.net/"]
     insteadOf = lp:
 
-[url "git+ssh://diddledan@git.launchpad.net/~diddledan/+git/"]
+[url "git+ssh://diddledani@git.launchpad.net/~diddledani/+git/"]
     insteadOf = lpme:
 
 [color]
