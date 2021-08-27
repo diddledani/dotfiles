@@ -104,6 +104,11 @@ gpg --keyserver keys.openpgp.org --recv-keys 4C9CBFAD0069D6799660BCD540C2D958034
 echo "Decrypting private files"
 yadm decrypt
 
+if [ -n "$WSL_DISTRO_NAME" ]; then
+  mkdir -p "$(wslpath "$(wslvar USERPROFILE)")/.ssh"
+  cp "$HOME/.ssh/id_rsa" "$(wslpath "$(wslvar USERPROFILE)")/.ssh/"
+fi
+
 echo "Updating the yadm repo origin URL"
 yadm remote set-url origin "git@github.com:diddledani/dotfiles.git"
 
