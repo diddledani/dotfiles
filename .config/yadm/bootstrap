@@ -4,9 +4,6 @@
 # be run from within $HOME (assuming this is the root of your dotfiles)
 cd "$HOME"
 
-echo "Init submodules"
-yadm submodule update --recursive --init
-
 system_type=$(uname -s)
 
 if [ -n "$WSL_DISTRO_NAME" ] && [ ! -f /etc/profile.d/00-wsl2-systemd.sh ]; then
@@ -21,6 +18,14 @@ if [ -n "$WSL_DISTRO_NAME" ] && [ ! -f /etc/profile.d/00-wsl2-systemd.sh ]; then
     rm "$install_script"
     exec /bin/sh /etc/profile.d/00-wsl2-systemd.sh "$(realpath "${BASH_SOURCE[0]}")"
 fi
+
+env RUNZSH="no" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ -f ".zshrc.pre-oh-my-zsh" ]; then
+  mv ".zshrc.pre-oh-my-zsh" ".zshrc"
+fi
+
+echo "Init submodules"
+yadm submodule update --recursive --init
 
 if [ "$system_type" = "Darwin" ]; then
   # install homebrew if it's missing
@@ -62,10 +67,6 @@ if [ "$system_type" = "Linux" ]; then
 
 fi
 
-env RUNZSH="no" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-if [ -f ".zshrc.pre-oh-my-zsh" ]; then
-  mv ".zshrc.pre-oh-my-zsh" ".zshrc"
-fi
 
 pushd "$HOME/bin/emsdk"
   ./emsdk update-tags

@@ -71,7 +71,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(composer dirhistory docker docker-compose dotenv gem git github golang grunt gulp kubectl npm per-directory-history rbenv svn virtualenv vscode wp-cli xcode yarn zsh-syntax-highlighting)
+plugins=(composer dirhistory docker docker-compose dotenv gem git github golang grunt gulp kubectl npm per-directory-history rbenv svn virtualenv vscode wp-cli xcode yarn zsh-syntax-highlighting zsh-history-substring-search zsh-autosuggestions)
+
+setopt HIST_IGNORE_ALL_DUPS
 
 # User configuration
 
@@ -147,4 +149,12 @@ build_prompt() {
 }
 
 source $ZSH/oh-my-zsh.sh
+
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+bindkey '^ ' autosuggest-accept
 
