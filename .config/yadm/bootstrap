@@ -27,6 +27,8 @@ fi
 echo "Init submodules"
 yadm submodule update --recursive --init
 
+rm -rf ".oh-my-zsh/custom/plugins"
+ln -sf "../../.zsh-plugins" ".oh-my-zsh/custom/plugins"
 if [ "$system_type" = "Darwin" ]; then
   # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
