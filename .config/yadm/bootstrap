@@ -56,7 +56,7 @@ if [ "$system_type" = "Linux" ]; then
     zsh \
   ;
 
-  sudo snap install --classic --channel=14/stable node
+  sudo snap install --classic --channel=16/stable node
   sudo snap install --classic go
   sudo snap install --classic hub
   sudo snap install --classic powershell
