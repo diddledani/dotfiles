@@ -86,7 +86,7 @@ if [ "$system_type" = "Darwin" ]; then
         HOMEBREW_DIR="/usr/local"
     else
         HOMEBREW_DIR="/opt/homebrew"
-        path+=("$HOMEBREW_DIR/bin")
+        path=("$HOMEBREW_DIR/bin" $path)
     fi
 
     export HAXE_STD_PATH="$HOMEBREW_DIR/lib/haxe/std"
@@ -124,6 +124,10 @@ export DEBEMAIL="diddledani@ubuntu.com"
 
 # export the new PATH
 export PATH
+
+if [ -f $HOME/Development/herctest/herc4x/hyperion-init-bash.sh ]; then
+    . $HOME/Development/herctest/herc4x/hyperion-init-bash.sh
+fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
