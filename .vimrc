@@ -134,6 +134,9 @@ set omnifunc=syntaxcomplete#Complete
 " More frequent updates for, e.g. signs.
 set updatetime=750
 
+" Make yank and paste use the system clipboard
+set clipboard=unnamedplus
+
 " }}}
 " {{{ Ack
 " Skip normal config, show filenames, no color, one result per line, show column numbers, smart case
