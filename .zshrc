@@ -137,6 +137,7 @@ export WATCOM=/usr/bin/watcom
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias srb="snapcraft remote-build --launchpad-accept-public-upload"
 
 eval "$(direnv hook zsh)"
 build_prompt() {
