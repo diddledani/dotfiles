@@ -92,12 +92,13 @@ if is_linux; then
 
 fi
 
-
-pushd "$HOME/bin/emsdk"
-  ./emsdk update-tags
-  ./emsdk install latest
-  ./emsdk activate latest
-popd
+if [ -d "$HOME/bin/emsdk" ]; then
+    pushd "$HOME/bin/emsdk"
+      ./emsdk update-tags
+      ./emsdk install latest
+      ./emsdk activate latest
+    popd
+fi
 
 pushd "$HOME/.rbenv"
   ./src/configure && make -C src
