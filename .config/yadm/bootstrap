@@ -100,9 +100,11 @@ if [ -d "$HOME/bin/emsdk" ]; then
     popd
 fi
 
-pushd "$HOME/.rbenv"
-  ./src/configure && make -C src
-popd
+if [ -d "$HOME/.rbenv" ]; then
+    pushd "$HOME/.rbenv"
+      ./src/configure && make -C src
+    popd
+fi
 
 composer_sigfile="$(mktemp)"
 curl -L -s -o "$composer_sigfile" "https://composer.github.io/installer.sig"
