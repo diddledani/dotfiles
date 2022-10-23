@@ -17,6 +17,14 @@ function is_linux() {
     [ "$system_type" = "Linux" ] && return 0 || return 1
 }
 
+if [ ! -d "$HOME/bin" ]; then
+    mkdir -p "$HOME/bin"
+fi
+
+if [ ! -d "$HOME/.wsl-cmds" ]; then
+    mkdir -p "$HOME/.wsl-cmds"
+fi
+
 if is_wsl; then
     for sock in "$HOME/.gnupg/S.gpg-agent" "/run/user/$UID/gnupg/S.gpg-agent"; do
         rm -f "$sock"
