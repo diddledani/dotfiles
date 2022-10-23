@@ -67,3 +67,6 @@ if is_wsl; then
 fi
 
 . "$HOME/.cargo/env"
+
+alias srb="snapcraft remote-build --launchpad-accept-public-upload"
+
