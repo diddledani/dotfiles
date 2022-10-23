@@ -45,28 +45,25 @@ done
 
 eval "$(direnv hook bash)"
 
-if is_wsl; then
-	#####
-	## Autorun for the gpg-relay bridge
-	##
-	SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
-    SOCAT_PID_FILE2=$HOME/.gnupg/socat-gpg.pid.2
+if [ ! -d "$HOME/.wsl-cmds" ]; then
+    mkdir -p "$HOME/.wsl-cmds"
+fi
 
-    relayexe="$(wslpath 'C:/Users/yabea/AppData/Roaming/wsl2-ssh-gpg-agent-relay.exe')"
+if is_wsl; then
     for sock in "$HOME/.gnupg/S.gpg-agent" "/run/user/$UID/gnupg/S.gpg-agent"; do
-        if ! ss -a | grep -q $sock; then
-            rm -f "$sock"
-            mkdir -p "$(dirname "$sock")"
-            setsid --fork socat UNIX-LISTEN:"$sock,fork" EXEC:"$relayexe -ei -ep -s -a 'C:/Users/yabea/AppData/Roaming/gnupg/S.gpg-agent'",nofork
-        fi
+        rm -f "$sock"
     done
     unset sock
+    rm -f "$HOME/.ssh/agent.sock"
 
-    export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
-    if ! ss -a | grep -q $SSH_AUTH_SOCK; then
-        rm -f $SSH_AUTH_SOCK
-        setsid --fork socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$relayexe -ei -ep -s //./pipe/openssh-ssh-agent",nofork
+    if command -v wslpath >/dev/null && command -v wslvar >/dev/null; then
+        [ -x "$HOME/.wsl-cmds/gpg" ] || ln -sf "$(wslpath "$(wslvar 'ProgramFiles(x86)')/GnuPG/bin/gpg.exe")" "$HOME/.wsl-cmds/gpg"
+
+        [ -x "$HOME/.wsl-cmds/scp" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/scp.exe")" "$HOME/.wsl-cmds/scp"
+        [ -x "$HOME/.wsl-cmds/sftp" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/sftp.exe")" "$HOME/.wsl-cmds/sftp"
+        [ -x "$HOME/.wsl-cmds/ssh" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/ssh.exe")" "$HOME/.wsl-cmds/ssh"
+        [ -x "$HOME/.wsl-cmds/ssh-add" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/ssh-add.exe")" "$HOME/.wsl-cmds/ssh-add"
     fi
-fi 
+fi
 
 . "$HOME/.cargo/env"
