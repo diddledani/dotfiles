@@ -123,9 +123,11 @@ chmod +x "$HOME/bin/wp"
 
 vim +BundleInstall +qall
 
-pushd "$HOME/.vim/bundle/YouCompleteMe"
-python3 install.py --all
-popd
+if [ -d "$HOME/.vim/bundle/YouCompleteMe" ]; then
+    pushd "$HOME/.vim/bundle/YouCompleteMe"
+        python3 install.py --all
+    popd
+fi
 
 echo "Importing GPG key"
 gpg --keyserver keys.openpgp.org --recv-keys 4C9CBFAD0069D6799660BCD540C2D9580349ED21
