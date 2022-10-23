@@ -18,16 +18,20 @@ function is_linux() {
 }
 
 if is_wsl; then
-    install_script="$(mktemp --suffix=.ps1)"
-    if [ $(/usr/bin/wslsys -B | awk '{print $2}') -gt 21286 ]; then
-        curl -o "$install_script" https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/build-21286%2B/install.ps1
-        powershell.exe -NonInteractive -NoProfile -ExecutionPolicy Bypass -File "$install_script" -distro "$WSL_DISTRO_NAME"
-    else
-        curl -o "$install_script" https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/master/install.ps1
-        powershell.exe -NonInteractive -NoProfile -ExecutionPolicy Bypass -File "$install_script" -distro "$WSL_DISTRO_NAME"
+    for sock in "$HOME/.gnupg/S.gpg-agent" "/run/user/$UID/gnupg/S.gpg-agent"; do
+        rm -f "$sock"
+    done
+    unset sock
+    rm -f "$HOME/.ssh/agent.sock"
+
+    if command -v wslpath >/dev/null && command -v wslvar >/dev/null; then
+        [ -x "$HOME/.wsl-cmds/gpg" ] || ln -sf "$(wslpath "$(wslvar 'ProgramFiles(x86)')/GnuPG/bin/gpg.exe")" "$HOME/.wsl-cmds/gpg"
+
+        [ -x "$HOME/.wsl-cmds/scp" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/scp.exe")" "$HOME/.wsl-cmds/scp"
+        [ -x "$HOME/.wsl-cmds/sftp" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/sftp.exe")" "$HOME/.wsl-cmds/sftp"
+        [ -x "$HOME/.wsl-cmds/ssh" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/ssh.exe")" "$HOME/.wsl-cmds/ssh"
+        [ -x "$HOME/.wsl-cmds/ssh-add" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/ssh-add.exe")" "$HOME/.wsl-cmds/ssh-add"
     fi
-    rm "$install_script"
-    exec /bin/sh /etc/profile.d/00-wsl2-systemd.sh "$(realpath "${BASH_SOURCE[0]}")"
 fi
 
 env RUNZSH="no" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
