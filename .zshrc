@@ -84,28 +84,39 @@ setopt HIST_IGNORE_ALL_DUPS
 
 # User configuration
 
-DEFAULT_USER=dllewellyn
+DEFAULT_USER=dani
 
 export COMPOSER_HOME="$HOME/.composer"
 
-if [ "$system_type" = "Darwin" ]; then
-    if [ "$system_arch" = "x86_64" ]; then
-        HOMEBREW_DIR="/usr/local"
-    else
-        HOMEBREW_DIR="/opt/homebrew"
-        path=("$HOMEBREW_DIR/bin" $path)
-    fi
-
-    export HAXE_STD_PATH="$HOMEBREW_DIR/lib/haxe/std"
-    export NEKOPATH="$HOMEBREW_DIR/lib/neko"
-fi
-
 if type brew &>/dev/null; then
     fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+    export HAXE_STD_PATH="$(brew --prefix)/lib/haxe/std"
+    export NEKOPATH="$(brew --prefix)/lib/neko"
 fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export GOPATH="$HOME/Development/go/gopath"
+
+if [ ! -d "$HOME/.wsl-cmds" ]; then
+    mkdir -p "$HOME/.wsl-cmds"
+fi
+
+if is_wsl; then
+    for sock in "$HOME/.gnupg/S.gpg-agent" "/run/user/$UID/gnupg/S.gpg-agent"; do
+        rm -f "$sock"
+    done
+    unset sock
+    rm -f "$HOME/.ssh/agent.sock"
+
+    if command -v wslpath >/dev/null && command -v wslvar >/dev/null; then
+        [ -x "$HOME/.wsl-cmds/gpg" ] || ln -sf "$(wslpath "$(wslvar 'ProgramFiles(x86)')/GnuPG/bin/gpg.exe")" "$HOME/.wsl-cmds/gpg"
+
+        [ -x "$HOME/.wsl-cmds/scp" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/scp.exe")" "$HOME/.wsl-cmds/scp"
+        [ -x "$HOME/.wsl-cmds/sftp" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/sftp.exe")" "$HOME/.wsl-cmds/sftp"
+        [ -x "$HOME/.wsl-cmds/ssh" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/ssh.exe")" "$HOME/.wsl-cmds/ssh"
+        [ -x "$HOME/.wsl-cmds/ssh-add" ] || ln -sf "$(wslpath "$(wslvar 'SystemRoot')/System32/OpenSSH/ssh-add.exe")" "$HOME/.wsl-cmds/ssh-add"
+    fi
+fi
 
 path+=("$COMPOSER_HOME/vendor/bin")
 path+=("$HOME/.npm-packages/bin")
@@ -115,6 +126,8 @@ path+=("$HOME/bin")
 path+=("$HOME/bin/flutter/bin")
 path+=(/usr/local/sbin)
 path+=(/usr/bin/watcom/binl64)
+
+path=("$HOME/.wsl-cmds" $path)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
