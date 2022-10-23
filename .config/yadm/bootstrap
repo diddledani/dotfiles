@@ -44,7 +44,7 @@ fi
 
 env RUNZSH="no" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 if [ -f ".zshrc.pre-oh-my-zsh" ]; then
-  mv ".zshrc.pre-oh-my-zsh" ".zshrc"
+    mv ".zshrc.pre-oh-my-zsh" ".zshrc"
 fi
 
 echo "Init submodules"
@@ -53,43 +53,38 @@ yadm submodule update --recursive --init
 rm -rf ".oh-my-zsh/custom/plugins"
 ln -sf "../../.zsh-plugins" ".oh-my-zsh/custom/plugins"
 if is_osx; then
-  # install homebrew if it's missing
-  if ! command -v brew >/dev/null 2>&1; then
-    echo "Installing homebrew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
+    # install homebrew if it's missing
+    if ! command -v brew >/dev/null 2>&1; then
+        echo "Installing homebrew"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
 
-  echo "Updating homebrew bundle"
-  brew bundle --global
+    echo "Updating homebrew bundle"
+    brew bundle --global
 fi
 
 if is_linux; then
-  sudo apt-get install --no-install-recommends -yyq \
-    build-essential \
-    cmake \
-    curl \
-    direnv \
-    fonts-noto-color-emoji \
-    mono-complete \
-    php-cli \
-    python3-dev \
-    scdaemon \
-    socat \
-    vim-gtk3 \
-    zsh \
-  ;
+    sudo apt-get install --no-install-recommends -yyq \
+        build-essential \
+        cmake \
+        curl \
+        direnv \
+        fonts-noto-color-emoji \
+        mono-complete \
+        php-cli \
+        python3-dev \
+        scdaemon \
+        socat \
+        vim-gtk3 \
+        zsh \
+        ;
 
-  sudo snap install --classic --channel=16/stable node
-  sudo snap install --classic go
-  sudo snap install --classic hub
-  sudo snap install --classic powershell
+    sudo snap install --classic --channel=16/stable node
+    sudo snap install --classic go
+    sudo snap install --classic hub
+    sudo snap install --classic powershell
 
-  sudo snap install --channel=extended hugo
-
-  if [ ! -d "$HOME/bin" ]; then
-    mkdir -p "$HOME/bin"
-  fi
-
+    sudo snap install --channel=extended hugo
 fi
 
 if [ -d "$HOME/bin/emsdk" ]; then
@@ -136,8 +131,8 @@ echo "Decrypting private files"
 yadm decrypt
 
 if is_wsl; then
-  mkdir -p "$(wslpath "$(wslvar USERPROFILE)")/.ssh"
-  cp "$HOME/.ssh/id_rsa" "$(wslpath "$(wslvar USERPROFILE)")/.ssh/"
+    mkdir -p "$(wslpath "$(wslvar USERPROFILE)")/.ssh"
+    cp "$HOME/.ssh/id_rsa" "$(wslpath "$(wslvar USERPROFILE)")/.ssh/"
 fi
 
 echo "Updating the yadm repo origin URL"
