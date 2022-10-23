@@ -1,5 +1,8 @@
+system_type=$(uname -s)
+system_arch=$(uname -m)
+
 function is_osx() {
-    [[ "$OSTYPE" =~ ^darwin ]] && return 0 || return 1
+    [ "$system_type" = "Darwin" ] && return 0 || return 1
 }
 function is_wsl() {
     [ -n "$WSL_DISTRO_NAME" ] && return 0 || return 1
