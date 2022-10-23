@@ -3,6 +3,13 @@
 system_type=$(uname -s)
 system_arch=$(uname -m)
 
+function is_osx() {
+    [ "$system_type" = "Darwin" ] && return 0 || return 1
+}
+function is_wsl() {
+    [ -n "$WSL_DISTRO_NAME" ] && return 0 || return 1
+}
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
