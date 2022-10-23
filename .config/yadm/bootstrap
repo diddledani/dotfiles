@@ -5,8 +5,19 @@
 cd "$HOME"
 
 system_type=$(uname -s)
+system_arch=$(uname -m)
 
-if [ -n "$WSL_DISTRO_NAME" ] && [ ! -f /etc/profile.d/00-wsl2-systemd.sh ]; then
+function is_osx() {
+    [ "$system_type" = "Darwin" ] && return 0 || return 1
+}
+function is_wsl() {
+    [ -n "$WSL_DISTRO_NAME" ] && return 0 || return 1
+}
+function is_linux() {
+    [ "$system_type" = "Linux" ] && return 0 || return 1
+}
+
+if is_wsl; then
     install_script="$(mktemp --suffix=.ps1)"
     if [ $(/usr/bin/wslsys -B | awk '{print $2}') -gt 21286 ]; then
         curl -o "$install_script" https://raw.githubusercontent.com/diddledani/one-script-wsl2-systemd/build-21286%2B/install.ps1
@@ -29,7 +40,7 @@ yadm submodule update --recursive --init
 
 rm -rf ".oh-my-zsh/custom/plugins"
 ln -sf "../../.zsh-plugins" ".oh-my-zsh/custom/plugins"
-if [ "$system_type" = "Darwin" ]; then
+if is_osx; then
   # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
@@ -40,7 +51,7 @@ if [ "$system_type" = "Darwin" ]; then
   brew bundle --global
 fi
 
-if [ "$system_type" = "Linux" ]; then
+if is_linux; then
   sudo apt-get install --no-install-recommends -yyq \
     build-essential \
     cmake \
@@ -107,7 +118,7 @@ gpg --keyserver keys.openpgp.org --recv-keys 4C9CBFAD0069D6799660BCD540C2D958034
 echo "Decrypting private files"
 yadm decrypt
 
-if [ -n "$WSL_DISTRO_NAME" ]; then
+if is_wsl; then
   mkdir -p "$(wslpath "$(wslvar USERPROFILE)")/.ssh"
   cp "$HOME/.ssh/id_rsa" "$(wslpath "$(wslvar USERPROFILE)")/.ssh/"
 fi
