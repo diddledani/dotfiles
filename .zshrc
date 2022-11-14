@@ -70,7 +70,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.zsh-plugins
+ZSH_CUSTOM=$HOME/.zsh-custom
 
 
 # Which plugins would you like to load?
