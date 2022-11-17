@@ -88,10 +88,21 @@ DEFAULT_USER=dani
 
 export COMPOSER_HOME="$HOME/.composer"
 
-if type brew &>/dev/null; then
+if is_osx; then
+    if [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x /usr/local/homebrew/bin/brew ]; then
+        eval "$(/usr/local/homebrew/bin/brew shellenv)"
+    fi
+
     fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+
     export HAXE_STD_PATH="$(brew --prefix)/lib/haxe/std"
     export NEKOPATH="$(brew --prefix)/lib/neko"
+
+    if [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
+        source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    fi
 fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -148,10 +159,6 @@ if [ -f $HOME/Development/herctest/herc4x/hyperion-init-bash.sh ]; then
 fi
 
 export WATCOM=/usr/bin/watcom
-
-if [ -f "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
-    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
