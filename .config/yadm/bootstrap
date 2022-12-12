@@ -87,6 +87,13 @@ if is_linux; then
     sudo snap install --channel=extended hugo
 fi
 
+if command -v az >/dev/null; then
+    az extension add --name aks-preview
+    az extension update --name aks-preview
+    az extension add --name k8s-extension
+    az extension update --name k8s-extension
+fi
+
 if [ -d "$HOME/bin/emsdk" ]; then
     pushd "$HOME/bin/emsdk"
       ./emsdk update-tags
