@@ -143,5 +143,5 @@ if is_wsl; then
 fi
 
 echo "Updating the yadm repo origin URL"
-yadm remote set-url origin "git@github.com:diddledani/dotfiles.git"
+yadm remote set-url origin "git@github.com:lucyllewy/dotfiles.git"
 
