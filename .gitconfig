@@ -17,7 +17,7 @@
 [pull]
 	rebase = true
 [commit]
-	gpgSign = true
+	gpgSign = false
 [push]
 	default = upstream
 [init]
