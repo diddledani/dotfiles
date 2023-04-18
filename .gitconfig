@@ -1,15 +1,15 @@
 [user]
-	email = dani@bowlhat.net
-	name = Dani Llewellyn
+	email = lucy@bowlhat.net
+	name = Lucy Llewellyn
     signingkey = 0349ED21
 
 [alias]
 	logs = log --show-signature
 
-[url "git+ssh://diddledani@git.launchpad.net/"]
+[url "git+ssh://lucyllewy@git.launchpad.net/"]
     insteadOf = lp:
 
-[url "git+ssh://diddledani@git.launchpad.net/~diddledani/+git/"]
+[url "git+ssh://lucyllewy@git.launchpad.net/~lucyllewy/+git/"]
     insteadOf = lpme:
 
 [color]
